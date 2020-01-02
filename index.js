@@ -12,7 +12,7 @@ connectDB(DB_URL, DB_OPT)
     console.log(`${new Date()} : ${message}`)
     // start app
     app.listen(PORT, function () {
-      // loggin app message
+      // logging app message
       console.log(`${new Date()} : listen on port ${this.address().port}`)
     })
   })

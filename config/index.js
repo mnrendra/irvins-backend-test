@@ -5,6 +5,9 @@ const constant = require('./constant')
 const production = require('./production')
 const development = require('./development')
 
+/**
+ * getEnvConfig function
+ */
 const getEnvConfig = () => {
   switch (process.env.NODE_ENV) {
     case 'production':
@@ -14,4 +17,5 @@ const getEnvConfig = () => {
   }
 }
 
+// export module
 module.exports = { ...getEnvConfig(), ...constant }

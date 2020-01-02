@@ -19,5 +19,11 @@ module.exports = {
         MATCH: /^(http|https):\/\/([^:/\s]+)([/|.|\w|-])*\.(jpg|jpeg|gif|png)((\?.*)$|$)/m
       }
     }
+  },
+  QUERY: {
+    MIN_PRICE: 0,
+    MAX_PRICE: 1000000,
+    PAGE: 0,
+    LIMIT: 3
   }
 }

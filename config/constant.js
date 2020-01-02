@@ -1,3 +1,7 @@
 module.exports = {
-  AUTHOR: 'Muhammad Rendra'
+  DB_OPT: {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  }
 }

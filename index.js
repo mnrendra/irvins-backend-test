@@ -17,5 +17,6 @@ connectDB(DB_URL, DB_OPT)
     })
   })
   .catch(e => {
+    // loggin error
     console.log(`${new Date()} : ${e.message}`)
   })

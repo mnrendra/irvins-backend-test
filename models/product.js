@@ -1,7 +1,7 @@
 // require Schema and model from mongoose
 const { Schema, model } = require('mongoose')
 // require model schema config
-const { NAME, PRICE, IMAGE } = require('../config').MODEL_SCHEMA.PRODUCT
+const { NAME, PRICE, IMAGE } = require('../config').SCHEMA.PRODUCT
 
 // create new schema
 const ProductSchema = new Schema({
@@ -10,6 +10,7 @@ const ProductSchema = new Schema({
     trim: true,
     minlength: NAME.MIN_LENGTH,
     maxlength: NAME.MAX_LENGTH,
+    match: NAME.MATCH,
     required: true
   },
   price: {

@@ -1,0 +1,33 @@
+{
+  "name": "irvins-backend-test",
+  "version": "1.0.0",
+  "description": "my Irvins backend test",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mnrendra/irvins-backend-test.git"
+  },
+  "author": "Muhammad Rendra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mnrendra/irvins-backend-test/issues"
+  },
+  "homepage": "https://github.com/mnrendra/irvins-backend-test#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "mongoose": "^5.8.3",
+    "multer": "^1.4.2",
+    "multer-sftp": "^0.2.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.2",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2"
+  }
+}

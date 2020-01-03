@@ -16,7 +16,7 @@ module.exports = {
         MAX: 1000000
       },
       IMAGE: {
-        MATCH: /^(http|https):\/\/([^:/\s]+)([/|.|\w|-])*\.(jpg|jpeg|gif|png)((\?.*)$|$)/m
+        MATCH: /^(http|https):\/\/([^:/\s]+)([/|.|\w|-])*\.(jpg|jpeg|png)((\?.*)$|$)/m
       }
     }
   },

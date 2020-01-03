@@ -4,13 +4,17 @@ const { Product } = require('../../models')
 const { validateProduct } = require('../../joiSchemas')
 // require error handler
 const { invalidField } = require('../../errors')
+// require URL from UPLOAD_IMAGE config
+const { URL } = require('../../config').UPLOAD_IMAGE
 
 /**
  * postProduct function
  */
-const postProduct = async ({ body }, res, next) => {
+const postProduct = async ({ body, file }, res, next) => {
   // try code
   try {
+    // sanitize image field
+    body.image = file ? `${URL}${file.filename}` : undefined
     // validate fields
     const { error, value } = await validateProduct(body)
     // return false if invalid field
@@ -19,7 +23,7 @@ const postProduct = async ({ body }, res, next) => {
       let errMsg
       if (context.regex) {
         switch (path[0]) {
-          case 'name': errMsg = 'name must be alphanumeric and space is allowed'; break
+          case 'name': errMsg = 'name must be alphanumeric. space is allowed'; break
           case 'image': errMsg = 'image must be valid image url'; break
         }
       } else errMsg = message

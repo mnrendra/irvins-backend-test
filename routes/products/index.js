@@ -3,6 +3,8 @@ const router = require('express').Router()
 // require route modules
 const { getProducts, getProductsById } = require('./get')
 const { postProduct } = require('./post')
+// require middleware from local utils
+const { uploadImage } = require('./utils')
 // require error modules
 const { notAllowedMethod } = require('../../errors')
 
@@ -10,7 +12,7 @@ const { notAllowedMethod } = require('../../errors')
 router.get('/', getProducts)
 router.get('/:id', getProductsById)
 // POST request
-router.post('/', postProduct)
+router.post('/', uploadImage, postProduct)
 // ALL request
 router.all('/', notAllowedMethod)
 

@@ -1,3 +1,4 @@
 module.exports = {
-  getSort: require('./getSort')
+  getSort: require('./getSort'),
+  uploadImage: require('./uploadImage')
 }

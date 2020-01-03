@@ -27,16 +27,14 @@ const uploadFile = ({ fieldName, storageConfig, options }) => {
     // set storage
     let storage
     if (sftp) {
-      sftp.privateKey = fs.readFileSync(sftp.privateKey)
+      const { privateKey } = sftp
+      sftp.privateKey = privateKey instanceof Buffer
+        ? privateKey
+        : fs.readFileSync(sftp.privateKey)
       storage = sftpStorage({ sftp, destination: dest, filename: fileName })
     } else {
       storage = multer.diskStorage({ destination: dest, filename: fileName })
     }
-    // const storage = sftp
-    //   ? (
-    //     sftp.privateKey = fs.readFileSync(sftp.privateKey),
-    //     sftpStorage({ sftp, destination: dest, filename: fileName })
-    //   ) : multer.diskStorage({ destination: dest, filename: fileName })
 
     // destructuring fileFilter from options
     const { fileFilter } = options

@@ -16,9 +16,7 @@ const connectDB = (dbURL, dbOpt) => {
         const message = `db connected on ${dbHost}:${port}/${name}`
         // resolve with connection and a message
         resolve({ connection, message })
-      })
-      .catch(e => {
-        // reject if catch error
+      }).catch(e => {
         reject(e)
       })
   })

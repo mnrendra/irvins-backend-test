@@ -1,9 +1,11 @@
 // require Schema and model from mongoose
 const { Schema, model } = require('mongoose')
-// require model schema config
+// require config
 const { NAME, PRICE, IMAGE } = require('../config').SCHEMA.PRODUCT
 
-// create new schema
+/**
+ * Product schema
+ */
 const ProductSchema = new Schema({
   name: {
     type: String,

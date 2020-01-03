@@ -7,7 +7,7 @@ module.exports = {
   notFoundEndpoint: require('./notFoundEndpoint'),
   notFoundId: require('./notFoundId'),
   notAllowedMethod: require('./notAllowedMethod'),
-  errorHandler: require('./errorHandler'),
   alreadyCreated: require('./alreadyCreated'),
-  sameValue: require('./sameValue')
+  sameValue: require('./sameValue'),
+  errorHandler: require('./errorHandler')
 }

@@ -2,13 +2,20 @@ module.exports = {
   PORT: 3000,
   DB_URL: 'mongodb://localhost:27017/irvins',
   UPLOAD_IMAGE: {
-    SFTP: {
-      HOST: '54.179.143.127',
-      PORT: 22,
-      USERNAME: 'ubuntu',
-      PRIVATEKEY: '/home/dev/.ssh/id_rsa_aws.pem'
+    STORAGE: {
+      // uncomment this config bellow if you want to store upload file on another server, instead of local.
+      // sftp: {
+      //   host: 'host',
+      //   port: 'port',
+      //   username: 'username',
+      //   privateKey: 'privateKey'
+      // },
+      // TODO: change this "destination" value based on your preferred and make sure to get write permission.
+      // TODO: set on your local web server ( nginx or else ) config to access this path from local url.
+      destination: '/opt/images'
     },
-    DIRNAME: '/opt/images',
-    URL: 'http://ec2-54-179-143-127.ap-southeast-1.compute.amazonaws.com/images/'
+    // TODO: change this "URL" value based on your preferred and make sure can access to "destination" path above.
+    // TODO: set on your local web server ( nginx or else ) config to access this path from local url.
+    URL: 'http://localhost/images/'
   }
 }

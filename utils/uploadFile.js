@@ -1,6 +1,7 @@
 // require multer and multer-sftp module
 const multer = require('multer')
 const sftpStorage = require('multer-sftp')
+const fs = require('fs')
 
 /**
  * uploadFile function
@@ -9,24 +10,26 @@ const uploadFile = ({ fieldName, storageConfig, options }) => {
   // try code to error handling
   try {
     // desctructuring storageConfig
-    const { sftp, dirName, fileName } = storageConfig
+    const { sftp, destination, filename } = storageConfig
 
     // set destination
-    const destination = (req, file, cb) => {
-      cb(null, dirName)
+    const dest = (req, file, cb) => {
+      cb(null, destination)
     }
 
     // set filename
-    const filename = (req, { originalname }, cb) => {
+    const fileName = (req, { originalname }, cb) => {
       const arr = originalname.split('.')
       const ext = arr[arr.length - 1]
-      cb(null, `${fileName}.${ext}`)
+      cb(null, `${filename()}.${ext}`)
     }
 
     // set storage
     const storage = sftp
-      ? sftpStorage({ sftp, destination, filename })
-      : multer.diskStorage({ destination, filename })
+      ? (
+        sftp.privateKey = fs.readFileSync(sftp.privateKey),
+        sftpStorage({ sftp, destination: dest, filename: fileName })
+      ) : multer.diskStorage({ destination: dest, filename: fileName })
 
     // destructuring fileFilter from options
     const { fileFilter } = options

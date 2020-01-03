@@ -37,8 +37,8 @@ const postProduct = async ({ body, file }, res, next) => {
     const newProduct = new Product(value)
     newProduct.save()
       .then(({ _id, name, price, image, created, updated }) => {
-        res.status(200).json({
-          status: 200,
+        res.status(201).json({
+          status: 201,
           success: {
             name: 'Success save new product!',
             data: {

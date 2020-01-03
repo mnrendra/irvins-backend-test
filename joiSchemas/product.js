@@ -1,6 +1,6 @@
 // require @hapi/joi module
 const Joi = require('@hapi/joi')
-// require model schema config
+// require config
 const { NAME, PRICE, IMAGE } = require('../config').SCHEMA.PRODUCT
 
 // create product shema
@@ -19,10 +19,9 @@ const schema = Joi.object({
 /**
  * validateProduct function
  */
-const validateProduct = (fields, optMethod, optValue) => {
+const validateProduct = fields => {
   return new Promise((resolve, reject) => {
     try {
-      // const result = schema[optMethod](...optValue).validate(fields)
       const result = schema.validate(fields)
       resolve(result)
     } catch (e) {

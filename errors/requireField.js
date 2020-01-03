@@ -5,7 +5,7 @@ const requireField = (res, field, message) => {
   res.status(400).json({
     status: 400,
     error: {
-      name: `${field} field is required!`,
+      name: 'require Field!',
       message: `${field} ${message || 'field cannot be empty'}!`
     }
   })

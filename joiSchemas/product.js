@@ -8,12 +8,10 @@ const schema = Joi.object({
   name: Joi.string()
     .regex(NAME.MATCH)
     .min(NAME.MIN_LENGTH)
-    .max(NAME.MAX_LENGTH)
-    .required(),
+    .max(NAME.MAX_LENGTH),
   price: Joi.number()
     .min(PRICE.MIN)
-    .max(PRICE.MAX)
-    .required(),
+    .max(PRICE.MAX),
   image: Joi.string()
     .regex(IMAGE.MATCH)
 })
@@ -21,9 +19,10 @@ const schema = Joi.object({
 /**
  * validateProduct function
  */
-const validateProduct = fields => {
+const validateProduct = (fields, optMethod, optValue) => {
   return new Promise((resolve, reject) => {
     try {
+      // const result = schema[optMethod](...optValue).validate(fields)
       const result = schema.validate(fields)
       resolve(result)
     } catch (e) {

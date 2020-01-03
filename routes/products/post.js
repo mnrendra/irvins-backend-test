@@ -1,10 +1,8 @@
-// require Product model
+// require local modules
 const { Product } = require('../../models')
-// require joiSchema module
 const { validateProduct } = require('../../joiSchemas')
-// require error handler
-const { invalidField } = require('../../errors')
-// require URL from UPLOAD_IMAGE config
+const { requireField, invalidField, alreadyCreated } = require('../../errors')
+// require config
 const { URL } = require('../../config').UPLOAD_IMAGE
 
 /**
@@ -13,45 +11,48 @@ const { URL } = require('../../config').UPLOAD_IMAGE
 const postProduct = async ({ body, file }, res, next) => {
   // try code
   try {
-    // sanitize image field
-    body.image = file ? `${URL}${file.filename}` : undefined
-    // validate fields
-    const { error, value } = await validateProduct(body)
-    // return false if invalid field
-    if (error) {
-      const { message, context, path } = error.details[0]
-      let errMsg
-      if (context.regex) {
-        switch (path[0]) {
-          case 'name': errMsg = 'name must be alphanumeric. space is allowed'; break
-          case 'image': errMsg = 'image must be valid image url'; break
-        }
-      } else errMsg = message
-      invalidField(res, errMsg.replace(/"/g, ''))
+    // validate requirement fields
+    const { name, price } = body
+    const image = file && `${URL}${file.filename}`
+    if (!name || !price) {
+      requireField(res, '"name" and "price"', 'fields are required!')
       return
     }
 
-    // init new product
-    const newProduct = new Product(value)
+    // validate fields
+    const { error, value } = await validateProduct({ name, price, image })
+    if (error) {
+      invalidField(res, error.details[0].message)
+      return
+    }
+
+    // check existing first
+    const doc = await Product.findOne({ name: value.name })
+    if (doc) {
+      alreadyCreated(res, 'product', value.name)
+      return
+    }
+
     // save new product
-    const { _id, name, price, image, created, updated } = await newProduct.save()
-    // send success response
-    res.status(200).json({
-      status: 200,
-      success: {
-        name: 'Success save new product!',
-        data: {
-          id: _id,
-          name,
-          price,
-          image,
-          created,
-          updated
-        }
-      }
-    })
+    const newProduct = new Product(value)
+    newProduct.save()
+      .then(({ _id, name, price, image, created, updated }) => {
+        res.status(200).json({
+          status: 200,
+          success: {
+            name: 'Success save new product!',
+            data: {
+              id: _id,
+              name,
+              price,
+              image,
+              created,
+              updated
+            }
+          }
+        })
+      }).catch(next)
   } catch (e) {
-    // next if catch an error
     next(e)
   }
 }
